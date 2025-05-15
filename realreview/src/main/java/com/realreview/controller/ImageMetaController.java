@@ -53,10 +53,8 @@ public class ImageMetaController {
 	        // Save the file to the destination
 	        file.transferTo(destination);
 
-	        // Parse timestamp string
 	        LocalDateTime timeStamp = LocalDateTime.parse(timeStampStr);
-
-	        // Save image metadata
+	       
 	        ImageMeta meta = new ImageMeta();
 	        meta.setFileName(fileName);
 	        meta.setUser(user);
@@ -86,32 +84,13 @@ public class ImageMetaController {
 	}
 
 	
-//	@GetMapping("/view")
-//	public ResponseEntity<byte[]> viewImage(@RequestParam("fileName")String fileName)throws IOException{
-//		String uploadDir = System.getProperty("user.dir") + File.separator + "uploads";
-//		File imageFile = new File(uploadDir , fileName);
-//		
-//		
-//		if(!imageFile.exists()) {
-//			return ResponseEntity.notFound().build();
-//		}
-//		
-//		byte[] imageBytes = java.nio.file.Files.readAllBytes(imageFile.toPath());
-//		
-//		HttpHeaders  headers = new HttpHeaders();
-//		headers.setContentType(MediaType.IMAGE_JPEG);
-//		
-//		return ResponseEntity.ok().headers(headers).body(imageBytes);
-//		
-//		
-//	}
 	
 	@GetMapping("/view")
 	public ResponseEntity<byte[]> viewImage(@RequestParam("fileName") String fileName) throws IOException {
 	    String uploadDir = System.getProperty("user.dir") + File.separator + "uploads";
 	    File imageFile = new File(uploadDir, fileName);
 
-	    System.out.println("Looking for file in: " + imageFile.getAbsolutePath()); // Debug log
+	    System.out.println("Looking for file in: " + imageFile.getAbsolutePath()); 
 
 	    if (!imageFile.exists()) {
 	        return ResponseEntity.notFound().build();
@@ -126,7 +105,7 @@ public class ImageMetaController {
 	    System.out.println("Detected content type: " + contentType);
 
 	    if (contentType == null) {
-	        contentType = "application/octet-stream"; // fallback content type
+	        contentType = "application/octet-stream"; 
 	    }
 
 	    headers.setContentType(MediaType.parseMediaType(contentType));
